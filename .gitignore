@@ -1,0 +1,21 @@
+Ignore Node Dependencies in all subdirectories
+
+**/node_modules
+**/package-lock.json
+**/yarn.lock
+
+Log files
+
+npm-debug.log*
+yarn-debug.log*
+
+OS and Editor artifacts
+
+.DS_Store
+.vscode
+.idea
+
+Build output folders
+
+/dist
+/build
