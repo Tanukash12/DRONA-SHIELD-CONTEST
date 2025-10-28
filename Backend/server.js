@@ -1,7 +1,7 @@
 require('dotenv').config(); // Load environment variables from .env file
 const express = require('express');
 const mongoose = require('mongoose');
-const session = require('express-session');
+// const session = require('express-session');
 const path = require('path');
 const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
@@ -20,19 +20,20 @@ mongoose.connect(MONGODB_URI)
 
 // Middlewares
 app.use(express.json()); // To parse JSON request bodies
-app.use(session({
-    secret: process.env.SESSION_SECRET || 'super-secret-key', // Move to .env for production!
-    resave: false,
-    saveUninitialized: false,
-    cookie: { maxAge: 24 * 60 * 60 * 1000 } // 24 hours
-}));
+// app.use(session({
+//     secret: process.env.SESSION_SECRET || 'super-secret-key', // Move to .env for production!
+//     resave: false,
+//     saveUninitialized: false,
+//     cookie: { maxAge: 24 * 60 * 60 * 1000 } // 24 hours
+// }));
 
 // CORS setup (Essential for separate frontend/backend)
 app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5500'); // Replace with your frontend URL
+    // Allows any origin (you might restrict this in production)
+    res.setHeader('Access-Control-Allow-Origin', '*'); 
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-    res.setHeader('Access-Control-Allow-Credentials', 'true');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization'); // MUST include Authorization
+    // res.setHeader('Access-Control-Allow-Credentials', 'true'); // ❌ REMOVE for simple token auth
     next();
 });
 
